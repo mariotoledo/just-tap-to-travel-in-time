@@ -9,9 +9,9 @@ Main.Game.prototype = {
 	    this.background.autoScroll(-20, 0);
 
 	    var stages = [
-    		{_id: 'stage1', label: 'Collect'},
-    		{_id: 'stage2', label: 'Jump'},
-    		{_id: 'stage3', label: 'Protect'}
+    		{_id: 'stage1', label: 'Collect', stage: 'Stage1'},
+    		{_id: 'stage2', label: 'Jump', stage: 'Stage1'},
+    		{_id: 'stage3', label: 'Protect', stage: 'Stage1'}
 	    ];
 
 	    var stageIndex = this.game.rnd.integerInRange(0, 2);
@@ -23,8 +23,6 @@ Main.Game.prototype = {
 
 	    console.log('this.currentStage ', this.currentStage );
 
-	    this.currentTime = new Date().getTime();
-
 	    var game_label = this.game.add.text(this.game.width / 2, this.game.height / 2, 
       		this.currentStage.label, 
       		{ font: "30px Arial", fill: "#fff", align: "center" }
@@ -35,11 +33,12 @@ Main.Game.prototype = {
     	this.game.time.events.add(5000, function() {    
     		this.game.add.tween(game_label).to({alpha: 1}, 500, Phaser.Easing.Linear.None, true);
     	}, this);
+
+      this.game.time.events.add(8000, function() {    
+        this.game.state.start(this.currentStage.stage);
+      }, this);
   	},
   	update: function() {
-
-  		if(this.hasPassedSeconds(8)){
-  		}
   	},
 	hasPassedSeconds: function(seconds){
 		var timeDifference = new Date().getTime() - this.currentTime;

@@ -10,6 +10,8 @@ Main.Boot.prototype = {
     this.load.image('logo', 'assets/images/logo.png');
     this.load.image('preloadbar', 'assets/images/loading-bar.png');
     this.load.image('bgtitle', 'assets/images/bg-title.png');
+    this.load.image('dog', 'assets/images/dog_walk.png');
+    this.load.image('ground', 'assets/images/ground.png');
   },
   create: function() {
   	//loading screen will have a white background
