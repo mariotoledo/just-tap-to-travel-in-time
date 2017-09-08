@@ -10,8 +10,9 @@ Main.Boot.prototype = {
     this.load.image('logo', 'assets/images/logo.png');
     this.load.image('preloadbar', 'assets/images/loading-bar.png');
     this.load.image('bgtitle', 'assets/images/bg-title.png');
-    this.load.spritesheet('scientist', 'assets/images/scientist.png', 128, 128, 2);
-    this.load.spritesheet('dino', 'assets/images/dino.png', 258, 180, 2);
+    this.load.spritesheet('scientist_walking', 'assets/images/scientist_walking.png', 128, 128, 2);
+    this.load.image('scientist_still', 'assets/images/scientist_still.png');
+    this.load.spritesheet('dino_walking', 'assets/images/dino_walking.png', 258, 180, 2);
     this.load.image('ground', 'assets/images/ground.png');
   },
   create: function() {

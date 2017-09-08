@@ -23,6 +23,10 @@ Main.Game.prototype = {
     	game_label.anchor.set(0.5);
     	game_label.alpha = 0;
 
+      this.game.add.text(20, 20, 'Lifes: ' + this.game.playerManager.lifes, 
+          { font: "14px Arial", fill: "#fff", align: "center" }
+      );
+
     	this.game.time.events.add(5000, function() {    
     		this.game.add.tween(game_label).to({alpha: 1}, 500, Phaser.Easing.Linear.None, true);
     	}, this);

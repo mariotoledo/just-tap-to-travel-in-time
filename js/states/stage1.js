@@ -12,13 +12,13 @@ Main.Stage1.prototype = {
 		
 	    this.ground = this.add.tileSprite(0,this.game.height - 70,this.game.world.width, 70, 'ground');
 
-	    this.player = this.game.add.sprite(this.game.width/2, this.game.height-128, 'scientist');
+	    this.player = this.game.add.sprite(this.game.width/2, this.game.height-128, 'scientist_walking');
 	    this.player.animations.add('walk');
 	    this.player.standDimensions = {width: this.player.width, height: this.player.height};
 	    this.player.anchor.setTo(0.5, 1);
 	    this.player.animations.play('walk', 24, true);
 
-	    this.dino = this.game.add.sprite(this.game.width/2 - 400, this.game.height-128, 'dino');
+	    this.dino = this.game.add.sprite(this.game.width/2 - 400, this.game.height-128, 'dino_walking');
 	    this.dino.animations.add('walk');
 	    this.dino.standDimensions = {width: this.dino.width, height: this.dino.height};
 	    this.dino.anchor.setTo(0.5, 1);
@@ -27,6 +27,8 @@ Main.Stage1.prototype = {
 	    this.game.world.bringToTop(this.ground);
 	    this.game.world.bringToTop(this.player);
 	    this.game.world.bringToTop(this.dino);
+
+	    this.game.stage.backgroundColor = "#4488AA";
 
 	    this.game.physics.arcade.enable(this.player);
 	    this.game.physics.arcade.enable(this.dino);
@@ -47,7 +49,9 @@ Main.Stage1.prototype = {
 	update: function() {
 	    this.game.physics.arcade.collide(this.player, this.ground, this.playerHit, null, this);
 	    this.game.physics.arcade.collide(this.dino, this.ground, this.playerHit, null, this);
-	    this.game.physics.arcade.collide(this.dino, this.player, this.playerLose, null, this);
+
+	    if(!this.stopped)
+	    	this.game.physics.arcade.collide(this.dino, this.player, this.playerCaught, null, this);
 
 	    if(this.game.input.activePointer.justPressed()){
 	    	if(this.playerAcceleration < 80){
@@ -61,28 +65,21 @@ Main.Stage1.prototype = {
 
 	    if(!this.stopped) {
 	      this.player.body.velocity.x = this.playerVelocity + this.playerAcceleration;
-	      this.dino.body.velocity.x = 300;
 	    } else {
 	    	this.player.body.velocity.x = 0;
-	    	//this.dino.body.velocity.x = 0;
 	    }
+
+	    this.dino.body.velocity.x = 300;
 
 	    if(this.player.body.position.x > this.stageLength){
-	    	this.goToMainMenu();
+	    	this.game.playerManager.winStage();
 	    }
 	},
 
-	playerLose: function(){
+	playerCaught: function(){
 		this.stopped = true;
-		this.goToMainMenu();
-	},
-
-	goToMainMenu: function(){
-		this.game.time.events.add(1000, function() {
-			this.camera.fade('#FFFFFF');
-	        this.camera.onFadeComplete.add(function(){
-	          this.game.state.start('Game');
-	        },this);
-	    }
+		this.player.loadTexture('scientist_still', 0);
+		this.game.add.tween(this.player).to( { angle: 90 }, 100, Phaser.Easing.Linear.None, true);
+		this.game.playerManager.loseStage();
 	}
 };
