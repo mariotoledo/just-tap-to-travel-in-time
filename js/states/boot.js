@@ -10,7 +10,8 @@ Main.Boot.prototype = {
     this.load.image('logo', 'assets/images/logo.png');
     this.load.image('preloadbar', 'assets/images/loading-bar.png');
     this.load.image('bgtitle', 'assets/images/bg-title.png');
-    this.load.image('dog', 'assets/images/dog_walk.png');
+    this.load.spritesheet('scientist', 'assets/images/scientist.png', 128, 128, 2);
+    this.load.spritesheet('dino', 'assets/images/dino.png', 258, 180, 2);
     this.load.image('ground', 'assets/images/ground.png');
   },
   create: function() {

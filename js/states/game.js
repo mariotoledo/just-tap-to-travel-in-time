@@ -9,19 +9,12 @@ Main.Game.prototype = {
 	    this.background.autoScroll(-20, 0);
 
 	    var stages = [
-    		{_id: 'stage1', label: 'Collect', stage: 'Stage1'},
-    		{_id: 'stage2', label: 'Jump', stage: 'Stage1'},
-    		{_id: 'stage3', label: 'Protect', stage: 'Stage1'}
+    		{_id: 'stage1', label: 'Run!', stage: 'Stage1'}
 	    ];
 
-	    var stageIndex = this.game.rnd.integerInRange(0, 2);
-
-	    console.log('stageIndex', stageIndex);
-	    console.log('stages', stages);
+	    var stageIndex = this.game.rnd.integerInRange(0, stages.length - 1);
 
 	    this.currentStage = stages[stageIndex];
-
-	    console.log('this.currentStage ', this.currentStage );
 
 	    var game_label = this.game.add.text(this.game.width / 2, this.game.height / 2, 
       		this.currentStage.label, 
@@ -34,8 +27,11 @@ Main.Game.prototype = {
     		this.game.add.tween(game_label).to({alpha: 1}, 500, Phaser.Easing.Linear.None, true);
     	}, this);
 
-      this.game.time.events.add(8000, function() {    
-        this.game.state.start(this.currentStage.stage);
+      this.game.time.events.add(8000, function() {
+        this.camera.fade('#FFFFFF');
+        this.camera.onFadeComplete.add(function(){
+          this.game.state.start(this.currentStage.stage);
+        },this);
       }, this);
   	},
   	update: function() {
