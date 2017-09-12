@@ -30,6 +30,9 @@ Main.Stage2.prototype = {
         this.player.body.gravity.y = gravity;
         this.enemy.body.gravity.y = gravity;
 
+        this.hasFinished = false;
+        this.isAbleToShoot = false;
+
         var ready_label = this.game.add.text(this.game.width / 2, this.game.height / 2, 
             'Ready...', 
             { font: "40px Arial", fill: "#fff", align: "center" }
@@ -47,16 +50,44 @@ Main.Stage2.prototype = {
 
         var shoot_delay = this.game.rnd.integerInRange(0, 5) * 500;
 
-        this.game.time.events.add(3000 + shoot_delay, function() { 
+        var vm = this;
+
+        this.game.time.events.add(3000 + shoot_delay, function() {
             this.game.add.tween(shoot_label).to({alpha: 1}, 100, Phaser.Easing.Linear.None, true);
 
             this.game.time.events.add(500, function() {
                 this.game.add.tween(shoot_label).to({alpha: 0}, 100, Phaser.Easing.Linear.None, true);
+
+                this.isAbleToShoot = true;
+
+                var enemy_shoot_delay = this.game.rnd.integerInRange(0, 5) * 70;
+
+                this.game.time.events.add(enemy_shoot_delay, function() {
+                    vm.enemyShoot();
+                });
             }, this);
         }, this);
     },
     update: function() {
         this.game.physics.arcade.collide(this.player, this.ground, this.playerHit, null, this);
         this.game.physics.arcade.collide(this.enemy, this.ground, this.playerHit, null, this);
+
+        if(this.game.input.activePointer.justPressed()){
+            this.playerShoot();
+        }
+    },
+    playerShoot: function() {
+        if(!this.hasFinished && this.isAbleToShoot){
+            this.hasFinished = true;
+            this.game.add.tween(this.enemy).to( { angle: 90 }, 100, Phaser.Easing.Linear.None, true);
+            this.game.playerManager.winStage();
+        }
+    },
+    enemyShoot: function(){
+        if(!this.hasFinished && this.isAbleToShoot){
+            this.hasFinished = true;
+            this.game.add.tween(this.player).to( { angle: 90 }, 100, Phaser.Easing.Linear.None, true);
+            this.game.playerManager.loseStage();
+        }
     }
 }

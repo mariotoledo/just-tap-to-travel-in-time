@@ -5,7 +5,7 @@ Main.Stage1.prototype = {
 	create: function() {
 		var gravity = 1000;
 
-		this.stopped = false;
+		this.finished = false;
 		this.stageLength = 5000;
 
 		this.game.world.setBounds(0, 0, this.stageLength, this.game.height);
@@ -58,7 +58,7 @@ Main.Stage1.prototype = {
 	    this.game.physics.arcade.collide(this.player, this.ground, this.playerHit, null, this);
 	    this.game.physics.arcade.collide(this.dino, this.ground, this.playerHit, null, this);
 
-	    if(!this.stopped)
+	    if(!this.finished)
 	    	this.game.physics.arcade.collide(this.dino, this.player, this.playerCaught, null, this);
 
 	    if(this.game.input.activePointer.justPressed()){
@@ -71,7 +71,7 @@ Main.Stage1.prototype = {
 	    	}
 	    }
 
-	    if(!this.stopped) {
+	    if(!this.finished) {
 	      this.player.body.velocity.x = this.playerVelocity + this.playerAcceleration;
 	    } else {
 	    	this.player.body.velocity.x = 0;
@@ -85,7 +85,7 @@ Main.Stage1.prototype = {
 	},
 
 	playerCaught: function(){
-		this.stopped = true;
+		this.finished = true;
 		this.player.loadTexture('scientist_still', 0);
 		this.game.add.tween(this.player).to( { angle: 90 }, 100, Phaser.Easing.Linear.None, true);
 		this.game.playerManager.loseStage();
