@@ -9,7 +9,7 @@ Main.Game.prototype = {
 	    this.background.autoScroll(-20, 0);
 
 	    var stages = [
-    		{_id: 'stage1', label: 'Run!', stage: 'Stage1'}
+    		{_id: 'stage1', label: 'Run!', stage: 'Stage2'}
 	    ];
 
 	    var stageIndex = this.game.rnd.integerInRange(0, stages.length - 1);
@@ -37,8 +37,14 @@ Main.Game.prototype = {
           this.game.state.start(this.currentStage.stage);
         },this);
       }, this);
+
+      this.scientist = this.game.add.sprite(-128, this.game.height / 2, 'scientist_still');
+      this.scientist.standDimensions = {width: this.scientist.width, height: this.scientist.height};
+      this.scientist.anchor.setTo(0.5, 1);
   	},
   	update: function() {
+      this.scientist.x += 5;
+      this.scientist.angle += 5;
   	},
 	hasPassedSeconds: function(seconds){
 		var timeDifference = new Date().getTime() - this.currentTime;

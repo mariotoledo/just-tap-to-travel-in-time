@@ -12,8 +12,11 @@ Main.Boot.prototype = {
     this.load.image('bgtitle', 'assets/images/bg-title.png');
     this.load.spritesheet('scientist_walking', 'assets/images/scientist_walking.png', 128, 128, 2);
     this.load.image('scientist_still', 'assets/images/scientist_still.png');
+    this.load.image('cowboy_still', 'assets/images/cowboy_still.png');
     this.load.spritesheet('dino_walking', 'assets/images/dino_walking.png', 258, 180, 2);
+    this.load.spritesheet('finish-line', 'assets/images/finish.png', 384, 384, 2);
     this.load.image('ground', 'assets/images/ground.png');
+    this.load.image('volcano', 'assets/images/volcano.png');
   },
   create: function() {
   	//loading screen will have a white background

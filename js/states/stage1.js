@@ -24,11 +24,19 @@ Main.Stage1.prototype = {
 	    this.dino.anchor.setTo(0.5, 1);
 	    this.dino.animations.play('walk', 24, true);
 
+	    this.finishLine = this.game.add.sprite(this.stageLength - 400, this.game.height - this.ground.height - 384, 'finish-line');
+
+	    for(var i = 0; i < 3; i++){
+	    	this.game.add.sprite(this.stageLength - (i * 1300), this.game.height - 475, 'volcano');	
+	    }
+	    this.finishLine = this.game.add.sprite(this.stageLength - 400, this.game.height - this.ground.height - 384, 'finish-line');
+
 	    this.game.world.bringToTop(this.ground);
 	    this.game.world.bringToTop(this.player);
 	    this.game.world.bringToTop(this.dino);
+	    this.game.world.bringToTop(this.finishLine);
 
-	    this.game.stage.backgroundColor = "#4488AA";
+	    this.game.stage.backgroundColor = "#FF9933";
 
 	    this.game.physics.arcade.enable(this.player);
 	    this.game.physics.arcade.enable(this.dino);
