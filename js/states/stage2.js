@@ -8,17 +8,23 @@ Main.Stage2.prototype = {
 
         this.ground = this.add.tileSprite(0,this.game.height - 70, this.game.world.width, 70, 'ground');
 
-        this.player = this.game.add.sprite(100, this.game.height - 70, 'scientist_still');
+        this.player = this.game.add.sprite(400, this.game.height - 70, 'scientist_still');
         this.player.anchor.setTo(0.5, 1);
 
-        this.enemy = this.game.add.sprite(this.game.width - 100, this.game.height - 70, 'cowboy_still');
+        this.enemy = this.game.add.sprite(this.game.width - 400, this.game.height - 70, 'cowboy_still');
+        this.enemy.anchor.setTo(0.5, 0.5);
+        this.enemy.scale.x *= -1;
         this.enemy.anchor.setTo(0.5, 1);
+
+        this.game.add.sprite(50, this.game.height - 310, 'warehouse'); 
+        this.game.add.sprite(this.game.width - 300, this.game.height - 260, 'shed'); 
 
         this.game.world.bringToTop(this.ground);
         this.game.world.bringToTop(this.player);
         this.game.world.bringToTop(this.enemy);
 
         this.game.stage.backgroundColor = "#4488AA";
+
 
         this.game.physics.arcade.enable(this.player);
         this.game.physics.arcade.enable(this.enemy);
@@ -55,7 +61,7 @@ Main.Stage2.prototype = {
         this.game.time.events.add(3000 + shoot_delay, function() {
             this.game.add.tween(shoot_label).to({alpha: 1}, 100, Phaser.Easing.Linear.None, true);
 
-            this.game.time.events.add(500, function() {
+            this.game.time.events.add(100, function() {
                 this.game.add.tween(shoot_label).to({alpha: 0}, 100, Phaser.Easing.Linear.None, true);
 
                 this.isAbleToShoot = true;
@@ -79,6 +85,7 @@ Main.Stage2.prototype = {
     playerShoot: function() {
         if(!this.hasFinished && this.isAbleToShoot){
             this.hasFinished = true;
+            this.player.loadTexture('scientist_revolver', 0);
             this.game.add.tween(this.enemy).to( { angle: 90 }, 100, Phaser.Easing.Linear.None, true);
             this.game.playerManager.winStage();
         }
@@ -86,6 +93,7 @@ Main.Stage2.prototype = {
     enemyShoot: function(){
         if(!this.hasFinished && this.isAbleToShoot){
             this.hasFinished = true;
+            this.enemy.loadTexture('cowboy_revolver', 0);
             this.game.add.tween(this.player).to( { angle: 90 }, 100, Phaser.Easing.Linear.None, true);
             this.game.playerManager.loseStage();
         }
