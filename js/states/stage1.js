@@ -12,13 +12,13 @@ Main.Stage1.prototype = {
 		
 	    this.ground = this.add.tileSprite(0,this.game.height - 70,this.game.world.width, 70, 'ground');
 
-	    this.player = this.game.add.sprite(this.game.width/2, this.game.height-128, 'scientist_walking');
+	    this.player = this.game.add.sprite(this.game.width / 2, this.game.height - 70, 'scientist_walking');
 	    this.player.animations.add('walk');
 	    this.player.standDimensions = {width: this.player.width, height: this.player.height};
 	    this.player.anchor.setTo(0.5, 1);
 	    this.player.animations.play('walk', 24, true);
 
-	    this.dino = this.game.add.sprite(this.game.width/2 - 400, this.game.height-128, 'dino_walking');
+	    this.dino = this.game.add.sprite(this.game.width/2 - 450, this.game.height - 70, 'dino_walking');
 	    this.dino.animations.add('walk');
 	    this.dino.standDimensions = {width: this.dino.width, height: this.dino.height};
 	    this.dino.anchor.setTo(0.5, 1);
@@ -27,8 +27,9 @@ Main.Stage1.prototype = {
 	    this.finishLine = this.game.add.sprite(this.stageLength - 400, this.game.height - this.ground.height - 384, 'finish-line');
 
 	    for(var i = 0; i < 3; i++){
-	    	this.game.add.sprite(this.stageLength - (i * 1300), this.game.height - 475, 'volcano');	
+	    	this.game.add.sprite((i  * 1200) + 300, this.game.height - 250, 'plateau');	
 	    }
+
 	    this.finishLine = this.game.add.sprite(this.stageLength - 400, this.game.height - this.ground.height - 384, 'finish-line');
 
 	    this.game.world.bringToTop(this.ground);
@@ -58,29 +59,37 @@ Main.Stage1.prototype = {
 	    this.game.physics.arcade.collide(this.player, this.ground, this.playerHit, null, this);
 	    this.game.physics.arcade.collide(this.dino, this.ground, this.playerHit, null, this);
 
+	    this.dino.body.velocity.x = 280;
+
 	    if(!this.finished)
 	    	this.game.physics.arcade.collide(this.dino, this.player, this.playerCaught, null, this);
 
-	    if(this.game.input.activePointer.justPressed()){
-	    	if(this.playerAcceleration < 80){
-	    		this.playerAcceleration += 1.4;
+	    var justPressed = this.game.input.activePointer.isDown;
+
+	    if(justPressed){
+	    	if(this.playerAcceleration < 61){
+	    		this.playerAcceleration += 1.30;
 	    	}
 	    } else {
 	    	if(this.playerAcceleration > 0){
-	    		this.playerAcceleration -= 1;
+	    		this.playerAcceleration -= 1.15;
 	    	}
 	    }
 
 	    if(!this.finished) {
 	      this.player.body.velocity.x = this.playerVelocity + this.playerAcceleration;
 	    } else {
-	    	this.player.body.velocity.x = 0;
+	    	if(this.win){
+	    		this.player.body.velocity.x = this.dino.body.velocity.x;
+	    	} else {
+	    		this.player.body.velocity.x = 0;				
+	    	}
 	    }
 
-	    this.dino.body.velocity.x = 300;
-
-	    if(this.player.body.position.x > this.stageLength){
-	    	this.game.playerManager.winStage();
+	    if(!this.finished && this.player.body.position.x > this.finishLine.x + (this.finishLine.width / 2)){
+	    	this.finished = true;
+	    	this.win = true;
+	    	this.game.gameController.winStage();
 	    }
 	},
 
@@ -88,6 +97,6 @@ Main.Stage1.prototype = {
 		this.finished = true;
 		this.player.loadTexture('scientist_still', 0);
 		this.game.add.tween(this.player).to( { angle: 90 }, 100, Phaser.Easing.Linear.None, true);
-		this.game.playerManager.loseStage();
+		this.game.gameController.loseStage();
 	}
 };

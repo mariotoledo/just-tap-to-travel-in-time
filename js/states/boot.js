@@ -1,13 +1,12 @@
 var Main = Main || {};
  
-//used only to load assets and config
 Main.Boot = function(){};
- 
-//setting game configuration and loading the assets for the loading screen
+
 Main.Boot.prototype = {
   preload: function() {
-  	//assets we'll use in the loading screen
-    this.load.image('logo', 'assets/images/logo.png');
+    
+  	//loading all assets
+    this.load.image('title', 'assets/images/title.png');
     this.load.image('preloadbar', 'assets/images/loading-bar.png');
     this.load.image('bgtitle', 'assets/images/bg-title.png');
     this.load.spritesheet('scientist_walking', 'assets/images/scientist_walking.png', 128, 128, 2);
@@ -18,30 +17,26 @@ Main.Boot.prototype = {
     this.load.spritesheet('dino_walking', 'assets/images/dino_walking.png', 258, 180, 2);
     this.load.spritesheet('finish-line', 'assets/images/finish.png', 384, 384, 2);
     this.load.image('ground', 'assets/images/ground.png');
-    this.load.image('volcano', 'assets/images/volcano.png');
+    this.load.image('lab_floor', 'assets/images/lab_floor.png');
+    this.load.image('plateau', 'assets/images/plateau.png');
+    this.load.image('oasis', 'assets/images/oasis.png');
     this.load.image('warehouse', 'assets/images/warehouse.png');
     this.load.image('stockyard', 'assets/images/stockyard.png');
     this.load.image('shed', 'assets/images/shed.png');
+    this.load.image('time_machine', 'assets/images/time_machine.png');
   },
   create: function() {
-  	//loading screen will have a white background
-    this.game.stage.backgroundColor = '#fff';
+    this.game.filterHelper = new Main.FilterHelper();
  
-    //scaling options
-	this.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
-	this.scale.minWidth = 240;
-	this.scale.minHeight = 170;
-	this.scale.maxWidth = 2880;
-	this.scale.maxHeight = 1920;
-	
-	//have the game centered horizontally
-	this.scale.pageAlignHorizontally = true;
- 
-	//screen size will be set automatically
-	//this.scale.setScreenSize(true);
- 
-	//physics system for movement
-	this.game.physics.startSystem(Phaser.Physics.ARCADE);
+  	this.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
+  	this.scale.minWidth = 800;
+  	this.scale.minHeight = 600;
+  	this.scale.maxWidth = 2880;
+  	this.scale.maxHeight = 1920;
+  	
+  	this.scale.pageAlignHorizontally = true;
+   
+  	this.game.physics.startSystem(Phaser.Physics.ARCADE);
     
     this.state.start('Preload');
   }

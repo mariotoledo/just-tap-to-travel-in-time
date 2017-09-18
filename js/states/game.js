@@ -5,46 +5,68 @@ Main.Game = function(){};
  
 Main.Game.prototype = {
   	create: function() {
-	  	this.background = this.game.add.tileSprite(0, 0, this.game.width, this.game.height, 'bgtitle');
-	    this.background.autoScroll(-20, 0);
-
 	    var stages = [
-    		{_id: 'stage1', label: 'Run!', stage: 'Stage2'}
+    		{_id: 'stage1', label: 'Run!', stage: 'Stage1'},
+        {_id: 'stage2', label: 'Shoot!', stage: 'Stage2'}
 	    ];
 
 	    var stageIndex = this.game.rnd.integerInRange(0, stages.length - 1);
 
 	    this.currentStage = stages[stageIndex];
 
-	    var game_label = this.game.add.text(this.game.width / 2, this.game.height / 2, 
+	    this.game_label = this.game.add.text(this.game.width / 2, this.game.height / 2, 
       		this.currentStage.label, 
-      		{ font: "30px Arial", fill: "#fff", align: "center" }
+      		{ font: "60px Arial", fill: "#fff", align: "center", fontWeight: 'bold' }
     	);
-    	game_label.anchor.set(0.5);
-    	game_label.alpha = 0;
+    	this.game_label.anchor.set(0.5);
+    	this.game_label.alpha = 0;
 
-      this.game.add.text(20, 20, 'Lifes: ' + this.game.playerManager.lifes, 
-          { font: "14px Arial", fill: "#fff", align: "center" }
+      this.lifes = this.game.add.text(20, 20, 'Lifes: ' + this.game.gameController.lifes, 
+          { font: "30px Arial", fill: "#fff", align: "center" }
       );
 
-    	this.game.time.events.add(5000, function() {    
-    		this.game.add.tween(game_label).to({alpha: 1}, 500, Phaser.Easing.Linear.None, true);
-    	}, this);
+      this.points = this.game.add.text(0, 20, 'Points: ' + this.game.gameController.points, 
+          { font: "30px Arial", fill: "#fff", align: "center" }
+      );
+      this.points.x = this.game.width - this.points.width - 20;
 
-      this.game.time.events.add(8000, function() {
-        this.camera.fade('#FFFFFF');
-        this.camera.onFadeComplete.add(function(){
-          this.game.state.start(this.currentStage.stage);
-        },this);
-      }, this);
+      this.timeMachine = this.game.add.sprite(-128, this.game.height / 2, 'time_machine');
+      this.timeMachine.standDimensions = {width: this.timeMachine.width, height: this.timeMachine.height};
+      this.timeMachine.anchor.setTo(0.5, 0.5);
 
-      this.scientist = this.game.add.sprite(-128, this.game.height / 2, 'scientist_still');
-      this.scientist.standDimensions = {width: this.scientist.width, height: this.scientist.height};
-      this.scientist.anchor.setTo(0.5, 1);
+      var backgroundFragment = this.game.filterHelper.timeTravelFilter();
+
+      this.backgroundFilter = new Phaser.Filter(this.game, null, backgroundFragment);
+      this.backgroundFilter.setResolution(this.game.width, this.game.height);
+
+      this.backgroundSprite = this.game.add.sprite();
+      this.backgroundSprite.width = this.game.width;
+      this.backgroundSprite.height = this.game.height;
+
+      this.backgroundSprite.filters = [ this.backgroundFilter ];
+
+      this.game.world.bringToTop(this.timeMachine);
+      this.game.world.bringToTop(this.game_label);
+      this.game.world.bringToTop(this.lifes);
+      this.game.world.bringToTop(this.points);
   	},
   	update: function() {
-      this.scientist.x += 5;
-      this.scientist.angle += 5;
+      this.backgroundFilter.update(this.game.input.mousePointer);
+
+      if(this.timeMachine.x > this.game.width){
+        this.game.add.tween(this.game_label).to({alpha: 1}, 500, Phaser.Easing.Linear.None, true);
+
+        this.game.time.events.add(3000, function() {
+          this.camera.fade('#FFFFFF');
+          this.camera.onFadeComplete.add(function(){
+            this.game.state.start(this.currentStage.stage);
+          },this);
+        }, this);
+      } 
+
+      this.timeMachine.x += 8;
+      this.timeMachine.angle += 8;
+      
   	},
 	hasPassedSeconds: function(seconds){
 		var timeDifference = new Date().getTime() - this.currentTime;

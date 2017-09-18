@@ -25,7 +25,6 @@ Main.Stage2.prototype = {
 
         this.game.stage.backgroundColor = "#4488AA";
 
-
         this.game.physics.arcade.enable(this.player);
         this.game.physics.arcade.enable(this.enemy);
         this.game.physics.arcade.enable(this.ground);
@@ -83,11 +82,17 @@ Main.Stage2.prototype = {
         }
     },
     playerShoot: function() {
-        if(!this.hasFinished && this.isAbleToShoot){
-            this.hasFinished = true;
-            this.player.loadTexture('scientist_revolver', 0);
-            this.game.add.tween(this.enemy).to( { angle: 90 }, 100, Phaser.Easing.Linear.None, true);
-            this.game.playerManager.winStage();
+        if(!this.hasFinished){
+            if(this.isAbleToShoot){
+                this.hasFinished = true;
+                this.player.loadTexture('scientist_revolver', 0);
+                this.game.add.tween(this.enemy).to( { angle: 90 }, 100, Phaser.Easing.Linear.None, true);
+                this.game.gameController.winStage();
+            } else {
+                this.hasFinished = true;
+                this.game.add.tween(this.player).to( { angle: 90 }, 100, Phaser.Easing.Linear.None, true);
+                this.game.gameController.loseStage();
+            }
         }
     },
     enemyShoot: function(){
@@ -95,7 +100,7 @@ Main.Stage2.prototype = {
             this.hasFinished = true;
             this.enemy.loadTexture('cowboy_revolver', 0);
             this.game.add.tween(this.player).to( { angle: 90 }, 100, Phaser.Easing.Linear.None, true);
-            this.game.playerManager.loseStage();
+            this.game.gameController.loseStage();
         }
     }
 }

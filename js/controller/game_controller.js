@@ -1,10 +1,12 @@
-Main.PlayerManager = function(game, camera){
+Main.GameController = function(game, camera){
     this.lifes = 3;
+    this.points = 0;
     this.game = game;
     this.camera = camera;
+    this.gameSpeed = 1;
 };
 
-Main.PlayerManager.prototype = {
+Main.GameController.prototype = {
     loseStage: function(){
         if(this.lifes > 1){
             this.lifes -= 1;
@@ -14,9 +16,11 @@ Main.PlayerManager.prototype = {
         }
     },
     winStage: function(){
+        this.points = this.points + (100 * this.gameSpeed);
+        this.gameSpeed = this.gameSpeed + 0.5;
         this.goToState('Game');
     },
-    goToState(stageName) {
+    goToState: function(stageName) {
         var camera = this.camera;
         var game = this.game;
 
