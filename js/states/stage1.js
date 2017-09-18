@@ -6,6 +6,8 @@ Main.Stage1.prototype = {
 		var gravity = 1000;
 
 		this.finished = false;
+		this.win = false;
+		
 		this.stageLength = 5000;
 
 		this.game.world.setBounds(0, 0, this.stageLength, this.game.height);
