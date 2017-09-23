@@ -9,7 +9,7 @@ The gameplay is based on "mini-games" games like Wario Ware, where the player mu
 
 I really want this game to become a collaborative project, so everyone can build new stages or even improve the gameplay or graphics
 
-#### [Check it out the live game right here](https://mariotoledo.github.io/just-tap-to-travel-in-time/)
+:arrow_forward: :arrow_forward: :arrow_forward: **[Check it out the live game right here](https://mariotoledo.github.io/just-tap-to-travel-in-time/)** :arrow_backward: :arrow_backward: :arrow_backward:
 
 ## Table of Contents
 
@@ -22,7 +22,7 @@ I really want this game to become a collaborative project, so everyone can build
 
 | Photo  | Name | Action  | Description | Creator |
 | ------------- | ------------- | ------------- | ------------- | ------------- |
-| ![ScreenShot](https://mariotoledo.github.io/just-tap-to-travel-in-time/docs/thumb_stage1.jpg) | Stage 1  | Run!  | Escape from de Dinosaur by tapping as fast as you can | [Mario Toledo](https://github.com/mariotoledo)
+| ![ScreenShot](https://mariotoledo.github.io/just-tap-to-travel-in-time/docs/thumb_stage1.jpg) | Stage 1  | Run!  | Escape from the Dinosaur by tapping as fast as you can | [Mario Toledo](https://github.com/mariotoledo)
 | ![ScreenShot](https://mariotoledo.github.io/just-tap-to-travel-in-time/docs/thumb_stage2.jpg) | Stage 2  | Shoot!  | Wait for the right time to tap and shoot the villain | [Mario Toledo](https://github.com/mariotoledo)
 
 ## Project Structure
@@ -40,7 +40,7 @@ I really want this game to become a collaborative project, so everyone can build
 
 ## How to create a stage?
 
-As told before, I want to make this a collaborative project with a lot of stages created by other people. Of course that I'm looking to help these people by giving all credits and adding its name and github profile in the game and int the project.
+As told before, I want to make this a collaborative project with a lot of stages created by other people. Of course that I'm looking to help these people by giving all credits and adding its name and github profile in the game and in the project.
 
 If you want to build a stage, first of all, you must clone this repo on your machine...
 
