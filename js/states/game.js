@@ -22,7 +22,7 @@ Main.Game.prototype = {
   raffleStage: function() {
     //array of stages, they will be chosen randomsly on each time this stage is started
     var stages = [
-      //{_id: 'stage1', label: 'Run!', stage: 'Stage1'},
+      {_id: 'stage1', label: 'Run!', stage: 'Stage1'},
       {_id: 'stage2', label: 'Shoot!', stage: 'Stage2'}
     ];
 
