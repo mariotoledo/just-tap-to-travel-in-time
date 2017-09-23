@@ -8,6 +8,7 @@ Main.GameController = function(game, camera){
 
 Main.GameController.prototype = {
     loseStage: function(){
+        this.gameSpeed = this.gameSpeed + 0.5;
         if(this.lifes > 1){
             this.lifes -= 1;
             this.goToState('Game');

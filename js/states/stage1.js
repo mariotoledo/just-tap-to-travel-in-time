@@ -4,44 +4,81 @@ Main.Stage1 = function(){};
 Main.Stage1.prototype = {
 	create: function() {
 		var gravity = 1000;
+		var stageLength = 5000;
 
 		this.finished = false;
 		this.win = false;
-		
-		this.stageLength = 5000;
 
-		this.game.world.setBounds(0, 0, this.stageLength, this.game.height);
-		
-	    this.ground = this.add.tileSprite(0,this.game.height - 70,this.game.world.width, 70, 'ground');
+		this.playerConfig = {
+			velocity: 220 * this.game.gameController.gameSpeed,
+			aceleration: 10 * this.game.gameController.gameSpeed,
+			maxAceleration: 70 * this.game.gameController.gameSpeed,
+			minAceleration: 0 * this.game.gameController.gameSpeed
+		};
 
+		this.dinoConfig = {
+			velocity: 280 * this.game.gameController.gameSpeed
+		};
+
+		//stage world settings
+		this.adjustStageWorld(stageLength);
+
+		//create all stage sprites
+		this.createSprites(stageLength);
+
+		//add phisics to elements (oh, really?)
+		this.addPhisicsToElements(gravity);
+
+		//create stage background
+		this.createBackground();
+
+		//bring to front all important elements
+		this.orderStageElements();
+
+		//camera settings
+		this.adjustCamera();
+	},
+	adjustStageWorld: function(stageLength){
+		this.game.world.setBounds(0, 0, stageLength, this.game.height);
+	},
+  	createSprites: function(stageLength){
+  		//creating ground sprite
+  		this.ground = this.add.tileSprite(0,this.game.height - 70,this.game.world.width, 70, 'ground');
+
+  		//creating player sprite
 	    this.player = this.game.add.sprite(this.game.width / 2, this.game.height - 70, 'scientist_walking');
 	    this.player.animations.add('walk');
 	    this.player.standDimensions = {width: this.player.width, height: this.player.height};
 	    this.player.anchor.setTo(0.5, 1);
-	    this.player.animations.play('walk', 24, true);
+	    this.player.animations.play('walk', 24 * this.game.gameController.gameSpeed, true);
 
+	    //creating dinosaur sprite
 	    this.dino = this.game.add.sprite(this.game.width/2 - 450, this.game.height - 70, 'dino_walking');
 	    this.dino.animations.add('walk');
 	    this.dino.standDimensions = {width: this.dino.width, height: this.dino.height};
 	    this.dino.anchor.setTo(0.5, 1);
-	    this.dino.animations.play('walk', 24, true);
+	    this.dino.animations.play('walk', 24 * this.game.gameController.gameSpeed, true);
 
-	    this.finishLine = this.game.add.sprite(this.stageLength - 400, this.game.height - this.ground.height - 384, 'finish-line');
+	    //creating finish line on the end of the stage
+	    this.finishLine = this.game.add.sprite(stageLength - 400, this.game.height - this.ground.height - 384, 'finish-line');
 
-	    for(var i = 0; i < 3; i++){
-	    	this.game.add.sprite((i  * 1200) + 300, this.game.height - 250, 'plateau');	
+	    //creating "decoration" elements
+	    var numberOfPlateus = 3;
+	    for(var i = 0; i < numberOfPlateus; i++){
+	    	this.game.add.sprite((i  * ((stageLength - 1200) / 3)) + 300, this.game.height - 250, 'plateau');	
 	    }
-
-	    this.finishLine = this.game.add.sprite(this.stageLength - 400, this.game.height - this.ground.height - 384, 'finish-line');
-
+  	},
+  	createBackground: function(){
+  		this.game.stage.backgroundColor = "#FF9933";
+  	},
+  	orderStageElements: function() {
 	    this.game.world.bringToTop(this.ground);
 	    this.game.world.bringToTop(this.player);
 	    this.game.world.bringToTop(this.dino);
 	    this.game.world.bringToTop(this.finishLine);
-
-	    this.game.stage.backgroundColor = "#FF9933";
-
-	    this.game.physics.arcade.enable(this.player);
+	},
+  	addPhisicsToElements: function(gravity){
+  		this.game.physics.arcade.enable(this.player);
 	    this.game.physics.arcade.enable(this.dino);
 	    this.game.physics.arcade.enable(this.ground);
 
@@ -50,36 +87,35 @@ Main.Stage1.prototype = {
 
 	    this.player.body.gravity.y = gravity;
 	    this.dino.body.gravity.y = gravity;
-
-	    this.game.camera.follow(this.player);
-
-	    this.playerVelocity = 220;
-	    this.playerAcceleration = 0;
-	},
-  
+  	},
+  	adjustCamera: function(){
+  		this.game.camera.follow(this.player);
+  	},
 	update: function() {
 	    this.game.physics.arcade.collide(this.player, this.ground, this.playerHit, null, this);
 	    this.game.physics.arcade.collide(this.dino, this.ground, this.playerHit, null, this);
 
-	    this.dino.body.velocity.x = 280;
+	    this.dino.body.velocity.x = this.dinoConfig.velocity;
 
+	    //player can be caught only if the game isn't over
 	    if(!this.finished)
 	    	this.game.physics.arcade.collide(this.dino, this.player, this.playerCaught, null, this);
 
 	    var justPressed = this.game.input.activePointer.isDown;
 
+	    //if the player presses the button, it gains speed and loses otherwise
 	    if(justPressed){
-	    	if(this.playerAcceleration < 61){
-	    		this.playerAcceleration += 1.30;
+	    	if(this.playerConfig.aceleration < this.playerConfig.maxAceleration){
+	    		this.playerConfig.aceleration += 1 * this.game.gameController.gameSpeed;
 	    	}
 	    } else {
-	    	if(this.playerAcceleration > 0){
-	    		this.playerAcceleration -= 1.15;
+	    	if(this.playerConfig.aceleration > this.playerConfig.minAceleration){
+	    		this.playerConfig.aceleration -= 1 * this.game.gameController.gameSpeed;
 	    	}
 	    }
 
 	    if(!this.finished) {
-	      this.player.body.velocity.x = this.playerVelocity + this.playerAcceleration;
+	      this.player.body.velocity.x = this.playerConfig.velocity + this.playerConfig.aceleration;
 	    } else {
 	    	if(this.win){
 	    		this.player.body.velocity.x = this.dino.body.velocity.x;
@@ -88,6 +124,7 @@ Main.Stage1.prototype = {
 	    	}
 	    }
 
+	    //if the player crosses the finish line, he wins the stage
 	    if(!this.finished && this.player.body.position.x > this.finishLine.x + (this.finishLine.width / 2)){
 	    	this.finished = true;
 	    	this.win = true;

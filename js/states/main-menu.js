@@ -10,8 +10,8 @@ Main.MainMenu.prototype = {
 
     this.game.stage.backgroundColor = "#91B185";
 
-    this.copyright = this.game.add.text(0, 0, 'by Mario Toledo', 
-        { font: "18px Arial", fill: "#fff", align: "left" }
+    this.copyright = this.game.add.text(0, 0, 'Development by Mario Toledo', 
+        { font: "14px Arial", fill: "#fff", align: "left" }
     );
 
     this.copyright.x = this.game.width - this.copyright.width - 20;
