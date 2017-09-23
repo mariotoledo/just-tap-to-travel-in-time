@@ -22,8 +22,8 @@ I really want this game to become a collaborative project, so everyone can build
 
 | Photo  | Name | Action  | Description | Creator |
 | ------------- | ------------- | ------------- | ------------- | ------------- |
-|  | Stage 1  | Run!  | Escape from de Dinosaur by tapping as fast as you can | [Mario Toledo](https://github.com/mariotoledo)
-|  | Stage 2  | Shoot!  | Wait for the right time to tap and shoot the villain | [Mario Toledo](https://github.com/mariotoledo)
+| ![ScreenShot](https://mariotoledo.github.io/just-tap-to-travel-in-time/docs/thumb_stage1.jpg) | Stage 1  | Run!  | Escape from de Dinosaur by tapping as fast as you can | [Mario Toledo](https://github.com/mariotoledo)
+| ![ScreenShot](https://mariotoledo.github.io/just-tap-to-travel-in-time/docs/thumb_stage2.jpg) | Stage 2  | Shoot!  | Wait for the right time to tap and shoot the villain | [Mario Toledo](https://github.com/mariotoledo)
 
 ## Project Structure
 
