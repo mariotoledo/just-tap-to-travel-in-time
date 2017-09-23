@@ -40,7 +40,7 @@ I really want this game to become a collaborative project, so everyone can build
 
 ## How to create a stage?
 
-As told before, I want to make this a collaborative project with a lot of stages created by other people. Of course that I'm looking to help these people by giving all credits and adding its name and github profile in the game and int the project.
+As told before, I want to make this a collaborative project with a lot of stages created by other people. Of course that I'm looking to help these people by giving all credits and adding its name and github profile in the game and in the project.
 
 If you want to build a stage, first of all, you must clone this repo on your machine...
 
