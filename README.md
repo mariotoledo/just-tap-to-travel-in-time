@@ -9,7 +9,7 @@ The gameplay is based on "mini-games" games like Wario Ware, where the player mu
 
 I really want this game to become a collaborative project, so everyone can build new stages or even improve the gameplay or graphics
 
-:arrow_forward: :arrow_forward: :arrow_forward:#### [Check it out the live game right here](https://mariotoledo.github.io/just-tap-to-travel-in-time/) :arrow_backward: :arrow_backward: :arrow_backward:
+:arrow_forward: :arrow_forward: :arrow_forward: **[Check it out the live game right here](https://mariotoledo.github.io/just-tap-to-travel-in-time/)** :arrow_backward: :arrow_backward: :arrow_backward:
 
 ## Table of Contents
 
