@@ -29,6 +29,7 @@ Main.GameOver.prototype = {
         this.game.time.events.add(5000, function() {    
             camera.fade('#FFFFFF');
             camera.onFadeComplete.add(function(){
+              this.backgroundMusic.stop();
               game.state.start('MainMenu');
             },this);
         }, this);
