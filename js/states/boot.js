@@ -30,6 +30,11 @@ Main.Boot.prototype = {
     this.load.audio('stage1', 'assets/music/stage1.wav');
     this.load.audio('stage2', 'assets/music/stage2.wav');
     this.load.audio('gameover', 'assets/music/gameover.wav');
+
+    this.load.audio('menu_selection', 'assets/sfx/menu_selection.wav');
+    this.load.audio('teleport', 'assets/sfx/teleport.wav');
+    this.load.audio('win', 'assets/sfx/win.wav');
+    this.load.audio('lose', 'assets/sfx/lose.wav');
   },
   create: function() {
     this.game.filterHelper = new Main.FilterHelper();

@@ -4,6 +4,9 @@ Main.MainMenu.prototype = {
   create: function() {
     this.game.gameController = new Main.GameController(this.game, this.camera);
 
+    this.started = false;
+    this.teleported = false;
+
     this.title_pos_y = 0.3;
 
     this.game.world.setBounds(0, 0, this.game.width, this.game.height);
@@ -38,13 +41,24 @@ Main.MainMenu.prototype = {
     this.game.world.bringToTop(this.copyright);
 
     this.backgroundMusic = this.game.add.audio('main');
-    this.game.sound.setDecodedCallback([this.backgroundMusic], this.playBackgroundMusic, this);
+
+    this.menuSfx = this.game.add.audio('menu_selection');
+    this.menuSfx.volume = 1.5;
+
+    this.teleportSfx = this.game.add.audio('teleport');
+    this.teleportSfx.volume = 0.7;
+
+    var sounds = [this.backgroundMusic, this.menuSfx, this.teleportSfx]
+
+    this.game.sound.setDecodedCallback(sounds, this.playBackgroundMusic, this);
   },
   playBackgroundMusic: function() {
     this.backgroundMusic.loopFull(0.6);
   },
   update: function() {
-    if(this.game.input.activePointer.justPressed()) {
+    if(this.game.input.activePointer.justPressed() && this.started == false) {
+      this.started = true;
+      this.menuSfx.play();
       this.game.add.tween(this.title).to({alpha: 0}, 500, Phaser.Easing.Linear.None, true);
 
       var vm = this;
@@ -69,17 +83,22 @@ Main.MainMenu.prototype = {
     this.title.y += this.title_pos_y;
   },
   timeTravel: function(){
-    this.enable_scientist_running = false;
-    this.scientist.loadTexture('scientist_still', 0);
-    this.game.add.tween(this.scientist).to({alpha: 0}, 50, Phaser.Easing.Linear.None, true);
+    if(this.teleported === false){
+      this.teleported = true;
+      this.teleportSfx.play();
 
-    var vm = this;
-    this.game.time.events.add(50, function() { 
-      vm.camera.fade('#FFFFFF');
-      vm.camera.onFadeComplete.add(function(){
-        this.backgroundMusic.stop();
-        vm.game.state.start('Game');
-      },vm); 
-    });
+      this.enable_scientist_running = false;
+      this.scientist.loadTexture('scientist_still', 0);
+      this.game.add.tween(this.scientist).to({alpha: 0}, 50, Phaser.Easing.Linear.None, true);
+
+      var vm = this;
+      this.game.time.events.add(50, function() { 
+        vm.camera.fade('#FFFFFF');
+        vm.camera.onFadeComplete.add(function(){
+          this.backgroundMusic.stop();
+          vm.game.state.start('Game');
+        },vm); 
+      });
+    }
   }
 };
