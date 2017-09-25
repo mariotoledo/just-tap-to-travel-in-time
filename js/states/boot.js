@@ -29,6 +29,7 @@ Main.Boot.prototype = {
     this.load.audio('intro', 'assets/music/intro.wav');
     this.load.audio('stage1', 'assets/music/stage1.wav');
     this.load.audio('stage2', 'assets/music/stage2.wav');
+    this.load.audio('gameover', 'assets/music/gameover.wav');
   },
   create: function() {
     this.game.filterHelper = new Main.FilterHelper();

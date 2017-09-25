@@ -7,27 +7,28 @@ Main.GameController = function(game, camera){
 };
 
 Main.GameController.prototype = {
-    loseStage: function(){
+    loseStage: function(callback){
         if(this.lifes > 1){
             this.lifes -= 1;
-            this.goToState('Game');
+            this.goToState('Game', callback);
         } else {
-            this.goToState('GameOver');
+            this.goToState('GameOver', callback);
         }
     },
-    winStage: function(){
+    winStage: function(callback){
         this.points = this.points + (100 * this.gameSpeed);
         this.gameSpeed = this.gameSpeed + 0.5;
-        this.goToState('Game');
+        this.goToState('Game', callback);
     },
-    goToState: function(stageName) {
+    goToState: function(stageName, callback) {
         var camera = this.camera;
         var game = this.game;
 
         this.game.time.events.add(1000, function() {
             camera.fade('#FFFFFF');
             camera.onFadeComplete.add(function(){
-              game.state.start(stageName);
+                callback();
+                game.state.start(stageName);
             },this);
         });
     }

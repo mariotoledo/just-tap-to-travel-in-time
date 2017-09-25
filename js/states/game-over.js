@@ -10,9 +10,18 @@ Main.GameOver.prototype = {
         game_over.anchor.set(0.5);
         this.game.stage.backgroundColor = "#000000";
 
+        this.prepareBackgroundMusic();
+
         this.game.add.tween(game_over).to( { y: this.game.height/2 }, 2400, Phaser.Easing.Bounce.Out, true);
     },
-  
+
+    prepareBackgroundMusic: function() {
+        this.backgroundMusic = this.game.add.audio('gameover');
+        this.game.sound.setDecodedCallback([this.backgroundMusic], this.playBackgroundMusic, this);
+    },
+    playBackgroundMusic: function() {
+        this.backgroundMusic.loopFull(0.6);
+    },  
     update: function() {
         var game = this.game;
         var camera = this.camera;

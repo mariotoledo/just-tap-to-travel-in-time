@@ -82,6 +82,8 @@ Main.Game.prototype = {
   },
   playBackgroundMusic: function() {
     this.backgroundMusic.loopFull(0.6);
+    this.backgroundMusic._sound.playbackRate.value = 
+      this.game.gameController.gameSpeed == 1 ? 1 : 1 + (this.game.gameController.gameSpeed * 0.10);
   },
 	update: function() {
     this.backgroundFilter.update(this.game.input.mousePointer);

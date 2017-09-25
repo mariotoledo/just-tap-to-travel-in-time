@@ -100,6 +100,8 @@ Main.Stage1.prototype = {
 	},
 	playBackgroundMusic: function() {
 	  this.backgroundMusic.loopFull(0.6);
+	  this.backgroundMusic._sound.playbackRate.value = 
+      	this.game.gameController.gameSpeed == 1 ? 1 : 1 + (this.game.gameController.gameSpeed * 0.10);
 	},
 	update: function() {
 	    this.game.physics.arcade.collide(this.player, this.ground, this.playerHit, null, this);
@@ -138,8 +140,11 @@ Main.Stage1.prototype = {
 	    if(!this.finished && this.player.body.position.x > this.finishLine.x + (this.finishLine.width / 2)){
 	    	this.finished = true;
 	    	this.win = true;
-	    	this.backgroundMusic.stop();
-	    	this.game.gameController.winStage();
+
+	    	var vm = this;
+	    	this.game.gameController.winStage(function() {
+	    		vm.backgroundMusic.stop();
+	    	});
 	    }
 	},
 
@@ -147,7 +152,10 @@ Main.Stage1.prototype = {
 		this.finished = true;
 		this.player.loadTexture('scientist_still', 0);
 		this.game.add.tween(this.player).to( { angle: 90 }, 100, Phaser.Easing.Linear.None, true);
-		this.backgroundMusic.stop();
-		this.game.gameController.loseStage();
+
+		var vm = this;
+		this.game.gameController.loseStage(function(){
+			vm.backgroundMusic.stop();
+		});
 	}
 };

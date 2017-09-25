@@ -117,20 +117,28 @@ Main.Stage2.prototype = {
     },
     playBackgroundMusic: function() {
         this.backgroundMusic.loopFull(0.6);
+        this.backgroundMusic._sound.playbackRate.value = 
+            this.game.gameController.gameSpeed == 1 ? 1 : 1 + (this.game.gameController.gameSpeed * 0.10);
     },
     playerShoot: function() {
         if(!this.hasFinished){
+            var vm = this;
+
             if(this.isAbleToShoot){
                 this.hasFinished = true;
                 this.player.loadTexture('scientist_revolver', 0);
                 this.game.add.tween(this.enemy).to( { angle: 90 }, 100 / this.game.gameController.gameSpeed, Phaser.Easing.Linear.None, true);
-                this.backgroundMusic.stop();
-                this.game.gameController.winStage();
+
+                this.game.gameController.winStage(function(){
+                    vm.backgroundMusic.stop();
+                });
             } else {
                 this.hasFinished = true;
                 this.game.add.tween(this.player).to( { angle: 90 }, 100 / this.game.gameController.gameSpeed, Phaser.Easing.Linear.None, true);
-                this.backgroundMusic.stop();
-                this.game.gameController.loseStage();
+
+                this.game.gameController.loseStage(function(){
+                    vm.backgroundMusic.stop();
+                });
             }
         }
     },
@@ -139,8 +147,11 @@ Main.Stage2.prototype = {
             this.hasFinished = true;
             this.enemy.loadTexture('cowboy_revolver', 0);
             this.game.add.tween(this.player).to( { angle: 90 }, 100 / this.game.gameController.gameSpeed, Phaser.Easing.Linear.None, true);
-            this.backgroundMusic.stop();
-            this.game.gameController.loseStage();
+            
+            var vm = this;
+            this.game.gameController.loseStage(function(){
+                vm.backgroundMusic.stop();
+            });
         }
     }
 }
