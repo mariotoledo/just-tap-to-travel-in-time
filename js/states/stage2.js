@@ -26,6 +26,9 @@ Main.Stage2.prototype = {
 
         //sets times for events to happen
         this.prepareShowdown();
+
+        //loads background music in loop
+        this.prepareBackgroundMusic();
     },
     adjustStageWorld: function(){
         this.game.world.setBounds(0, 0, this.game.width, this.game.height);
@@ -108,16 +111,25 @@ Main.Stage2.prototype = {
         this.game.world.bringToTop(this.player);
         this.game.world.bringToTop(this.enemy);
     },
+    prepareBackgroundMusic: function() {
+        this.backgroundMusic = this.game.add.audio('stage2');
+        this.game.sound.setDecodedCallback([this.backgroundMusic], this.playBackgroundMusic, this);
+    },
+    playBackgroundMusic: function() {
+        this.backgroundMusic.loopFull(0.6);
+    },
     playerShoot: function() {
         if(!this.hasFinished){
             if(this.isAbleToShoot){
                 this.hasFinished = true;
                 this.player.loadTexture('scientist_revolver', 0);
                 this.game.add.tween(this.enemy).to( { angle: 90 }, 100 / this.game.gameController.gameSpeed, Phaser.Easing.Linear.None, true);
+                this.backgroundMusic.stop();
                 this.game.gameController.winStage();
             } else {
                 this.hasFinished = true;
                 this.game.add.tween(this.player).to( { angle: 90 }, 100 / this.game.gameController.gameSpeed, Phaser.Easing.Linear.None, true);
+                this.backgroundMusic.stop();
                 this.game.gameController.loseStage();
             }
         }
@@ -127,6 +139,7 @@ Main.Stage2.prototype = {
             this.hasFinished = true;
             this.enemy.loadTexture('cowboy_revolver', 0);
             this.game.add.tween(this.player).to( { angle: 90 }, 100 / this.game.gameController.gameSpeed, Phaser.Easing.Linear.None, true);
+            this.backgroundMusic.stop();
             this.game.gameController.loseStage();
         }
     }

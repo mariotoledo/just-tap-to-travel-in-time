@@ -37,6 +37,9 @@ Main.Stage1.prototype = {
 
 		//camera settings
 		this.adjustCamera();
+
+		//loads background music in loop
+    	this.prepareBackgroundMusic();
 	},
 	adjustStageWorld: function(stageLength){
 		this.game.world.setBounds(0, 0, stageLength, this.game.height);
@@ -91,6 +94,13 @@ Main.Stage1.prototype = {
   	adjustCamera: function(){
   		this.game.camera.follow(this.player);
   	},
+	prepareBackgroundMusic: function() {
+	  this.backgroundMusic = this.game.add.audio('stage1');
+	  this.game.sound.setDecodedCallback([this.backgroundMusic], this.playBackgroundMusic, this);
+	},
+	playBackgroundMusic: function() {
+	  this.backgroundMusic.loopFull(0.6);
+	},
 	update: function() {
 	    this.game.physics.arcade.collide(this.player, this.ground, this.playerHit, null, this);
 	    this.game.physics.arcade.collide(this.dino, this.ground, this.playerHit, null, this);
@@ -128,6 +138,7 @@ Main.Stage1.prototype = {
 	    if(!this.finished && this.player.body.position.x > this.finishLine.x + (this.finishLine.width / 2)){
 	    	this.finished = true;
 	    	this.win = true;
+	    	this.backgroundMusic.stop();
 	    	this.game.gameController.winStage();
 	    }
 	},
@@ -136,6 +147,7 @@ Main.Stage1.prototype = {
 		this.finished = true;
 		this.player.loadTexture('scientist_still', 0);
 		this.game.add.tween(this.player).to( { angle: 90 }, 100, Phaser.Easing.Linear.None, true);
+		this.backgroundMusic.stop();
 		this.game.gameController.loseStage();
 	}
 };

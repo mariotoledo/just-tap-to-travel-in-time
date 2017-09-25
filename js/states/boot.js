@@ -24,6 +24,11 @@ Main.Boot.prototype = {
     this.load.image('stockyard', 'assets/images/stockyard.png');
     this.load.image('shed', 'assets/images/shed.png');
     this.load.image('time_machine', 'assets/images/time_machine.png');
+
+    this.load.audio('main', 'assets/music/main.wav');
+    this.load.audio('intro', 'assets/music/intro.wav');
+    this.load.audio('stage1', 'assets/music/stage1.wav');
+    this.load.audio('stage2', 'assets/music/stage2.wav');
   },
   create: function() {
     this.game.filterHelper = new Main.FilterHelper();
@@ -37,7 +42,8 @@ Main.Boot.prototype = {
   	this.scale.pageAlignHorizontally = true;
    
   	this.game.physics.startSystem(Phaser.Physics.ARCADE);
-    
+
     this.state.start('Preload');
+
   }
 };

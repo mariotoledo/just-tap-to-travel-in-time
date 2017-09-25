@@ -18,6 +18,9 @@ Main.Game.prototype = {
 
     //bring to front all important elements
     this.orderStageElements();
+
+    //loads background music in loop
+    this.prepareBackgroundMusic();
 	},
   raffleStage: function() {
     //array of stages, they will be chosen randomsly on each time this stage is started
@@ -73,6 +76,13 @@ Main.Game.prototype = {
     this.game.world.bringToTop(this.lifes);
     this.game.world.bringToTop(this.points);
   },
+  prepareBackgroundMusic: function() {
+    this.backgroundMusic = this.game.add.audio('intro');
+    this.game.sound.setDecodedCallback([this.backgroundMusic], this.playBackgroundMusic, this);
+  },
+  playBackgroundMusic: function() {
+    this.backgroundMusic.loopFull(0.6);
+  },
 	update: function() {
     this.backgroundFilter.update(this.game.input.mousePointer);
 
@@ -84,6 +94,7 @@ Main.Game.prototype = {
       this.game.time.events.add(3000 / this.game.gameController.gameSpeed, function() {
         this.camera.fade('#FFFFFF');
         this.camera.onFadeComplete.add(function(){
+          this.backgroundMusic.stop();
           this.game.state.start(this.currentStage.stage);
         },this);
       }, this);

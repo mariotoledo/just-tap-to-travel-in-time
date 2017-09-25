@@ -10,12 +10,12 @@ Main.MainMenu.prototype = {
 
     this.game.stage.backgroundColor = "#91B185";
 
-    this.copyright = this.game.add.text(0, 0, 'Development by Mario Toledo', 
+    this.copyright = this.game.add.text(0, 0, 'Development by Mario Toledo\nBackground Music by SketchyLogic', 
         { font: "14px Arial", fill: "#fff", align: "left" }
     );
 
     this.copyright.x = this.game.width - this.copyright.width - 20;
-    this.copyright.y = this.game.height - this.copyright.height - 20;
+    this.copyright.y = this.game.height - this.copyright.height - 10;
 
     this.ground = this.add.tileSprite(0,this.game.height - 70,this.game.world.width, 70, 'lab_floor');
     this.game.world.bringToTop(this.ground);
@@ -36,6 +36,12 @@ Main.MainMenu.prototype = {
     this.game.world.bringToTop(this.title);
     this.game.world.bringToTop(this.scientist);
     this.game.world.bringToTop(this.copyright);
+
+    this.backgroundMusic = this.game.add.audio('main');
+    this.game.sound.setDecodedCallback([this.backgroundMusic], this.playBackgroundMusic, this);
+  },
+  playBackgroundMusic: function() {
+    this.backgroundMusic.loopFull(0.6);
   },
   update: function() {
     if(this.game.input.activePointer.justPressed()) {
@@ -71,6 +77,7 @@ Main.MainMenu.prototype = {
     this.game.time.events.add(50, function() { 
       vm.camera.fade('#FFFFFF');
       vm.camera.onFadeComplete.add(function(){
+        this.backgroundMusic.stop();
         vm.game.state.start('Game');
       },vm); 
     });
