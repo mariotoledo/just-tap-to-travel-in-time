@@ -48,6 +48,7 @@ Main.MainMenu.prototype = {
     this.game.world.bringToTop(this.title);
     this.game.world.bringToTop(this.scientist);
     this.game.world.bringToTop(this.copyright);
+    this.game.world.bringToTop(this.helpUs);
   },
   adjustStageWorld: function(){
     this.game.world.setBounds(0, 0, this.game.width, this.game.height);
@@ -62,6 +63,11 @@ Main.MainMenu.prototype = {
 
     this.copyright.x = this.game.width - this.copyright.width - 20;
     this.copyright.y = this.game.height - this.copyright.height - 10;
+
+    this.helpUs = this.game.add.text(20, 0, 'This is a open-source and colaborative game.\nHelp us at: https://github.com/mariotoledo/just-tap-to-travel-in-time', 
+        { font: "14px Arial", fill: "#fff", align: "left" }
+    );
+    this.helpUs.y = this.game.height - this.helpUs.height - 10;
   },
   prepareBackgroundMusic: function() {
     this.backgroundMusic = this.game.add.audio('main');
