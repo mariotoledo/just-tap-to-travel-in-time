@@ -9,17 +9,25 @@ Main.MainMenu.prototype = {
 
     this.title_pos_y = 0.3;
 
-    this.game.world.setBounds(0, 0, this.game.width, this.game.height);
+    //stage world settings
+    this.adjustStageWorld();
 
-    this.game.stage.backgroundColor = "#91B185";
+    //create stage background
+    this.createBackground();
 
-    this.copyright = this.game.add.text(0, 0, 'Development by Mario Toledo\nBackground Music by SketchyLogic', 
-        { font: "14px Arial", fill: "#fff", align: "left" }
-    );
+    //create all stage HUDs
+    this.createStageLabels();
 
-    this.copyright.x = this.game.width - this.copyright.width - 20;
-    this.copyright.y = this.game.height - this.copyright.height - 10;
+    //create all stage sprites
+    this.createSprites();
 
+    //bring to front all important elements
+    this.orderStageElements();
+
+    //loads background music in loop and sfx
+    this.prepareBackgroundMusic();
+  },
+  createSprites: function(){
     this.ground = this.add.tileSprite(0,this.game.height - 70,this.game.world.width, 70, 'lab_floor');
     this.game.world.bringToTop(this.ground);
     this.game.physics.arcade.enable(this.ground);
@@ -35,11 +43,27 @@ Main.MainMenu.prototype = {
 
     this.title = this.add.sprite(this.game.world.centerX, this.game.world.centerY - 70, 'title');
     this.title.anchor.setTo(0.5);
-
+  },
+  orderStageElements: function() {
     this.game.world.bringToTop(this.title);
     this.game.world.bringToTop(this.scientist);
     this.game.world.bringToTop(this.copyright);
+  },
+  adjustStageWorld: function(){
+    this.game.world.setBounds(0, 0, this.game.width, this.game.height);
+  },
+  createBackground: function(){
+    this.game.stage.backgroundColor = "#91B185";
+  },
+  createStageLabels: function() {
+    this.copyright = this.game.add.text(0, 0, 'Development by Mario Toledo\nBackground Music by SketchyLogic', 
+        { font: "14px Arial", fill: "#fff", align: "left" }
+    );
 
+    this.copyright.x = this.game.width - this.copyright.width - 20;
+    this.copyright.y = this.game.height - this.copyright.height - 10;
+  },
+  prepareBackgroundMusic: function() {
     this.backgroundMusic = this.game.add.audio('main');
 
     this.menuSfx = this.game.add.audio('menu_selection');
