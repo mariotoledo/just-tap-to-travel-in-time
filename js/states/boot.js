@@ -13,17 +13,12 @@ Main.Boot.prototype = {
   create: function() {
     this.game.filterHelper = new Main.FilterHelper();
  
-  	this.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
-  	this.scale.minWidth = 800;
-  	this.scale.minHeight = 600;
-  	this.scale.maxWidth = 2880;
-  	this.scale.maxHeight = 1920;
-  	
+  	this.scale.scaleMode = Phaser.ScaleManager.RESIZE;
+
+    this.scale.forceOrientation(false, true);
   	this.scale.pageAlignHorizontally = true;
-   
+
   	this.game.physics.startSystem(Phaser.Physics.ARCADE);
-
-    this.state.start('Preload');
-
+    this.state.start('Preload'); 
   }
 };
