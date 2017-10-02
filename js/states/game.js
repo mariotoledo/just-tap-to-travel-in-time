@@ -56,9 +56,14 @@ Main.Game.prototype = {
     this.points.x = this.game.width - this.points.width - 20;
   },
   createSprites: function() {
+    var scaleRatio = this.game.scaleHelper.getScaleRatio();
+
     this.timeMachine = this.game.add.sprite(-128, this.game.height / 2, 'time_machine');
+    this.timeMachine.scale.setTo(scaleRatio, scaleRatio);
     this.timeMachine.standDimensions = {width: this.timeMachine.width, height: this.timeMachine.height};
     this.timeMachine.anchor.setTo(0.5, 0.5);
+    this.timeMachine.x = -this.timeMachine.width;
+    this.timeMachine.y = this.game.world.centerY;
   },
   createBackground: function() {
     this.backgroundFilter = new Phaser.Filter(this.game, null, this.game.filterHelper.timeTravelFilter());

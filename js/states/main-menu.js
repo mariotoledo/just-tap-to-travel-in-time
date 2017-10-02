@@ -28,18 +28,26 @@ Main.MainMenu.prototype = {
     this.prepareBackgroundMusic();
   },
   createSprites: function(){
-    this.ground = this.add.tileSprite(0,this.game.height - 70,this.game.world.width, 70, 'lab_floor');
+    var scaleRatio = this.game.scaleHelper.getScaleRatio();
+
+    this.ground = this.add.tileSprite(0, this.game.height - 70, this.game.world.width, 70, 'lab_floor');
     this.game.world.bringToTop(this.ground);
     this.game.physics.arcade.enable(this.ground);
 
-    this.scientist = this.game.add.sprite(-128, this.game.height-70, 'scientist_walking');
+    this.scientist = this.game.add.sprite(0, 0, 'scientist_walking');
+    this.scientist.scale.setTo(scaleRatio, scaleRatio);
+    this.scientist.x = -this.scientist.width;
+    this.scientist.y = this.game.height - this.ground.height;
     this.scientist.alpha = 0;
     this.scientist.animations.add('walk');
     this.scientist.standDimensions = {width: this.scientist.width, height: this.scientist.height};
     this.scientist.anchor.setTo(0.5, 1);
     this.scientist.animations.play('walk', 24, true);
 
-    this.timeMachine = this.game.add.sprite(this.game.world.centerX - 50, this.game.height - 370, 'time_machine');
+    this.timeMachine = this.game.add.sprite(0, 0, 'time_machine');
+    this.timeMachine.scale.setTo(scaleRatio, scaleRatio);
+    this.timeMachine.x = this.game.world.centerX - (this.timeMachine.width / 2);
+    this.timeMachine.y = this.game.height - this.timeMachine.height - this.ground.height;
 
     this.title = this.add.sprite(this.game.world.centerX, this.game.world.centerY - 70, 'title');
     this.title.anchor.setTo(0.5);
@@ -57,15 +65,19 @@ Main.MainMenu.prototype = {
     this.game.stage.backgroundColor = "#91B185";
   },
   createStageLabels: function() {
+    var fontSize = this.game.device.desktop ? '14px' : '10px';
+
+    console.log('this.game.device', this.game.device);
+
     this.copyright = this.game.add.text(0, 0, 'Development by Mario Toledo\nBackground Music by SketchyLogic', 
-        { font: "14px Arial", fill: "#fff", align: "left" }
+        { font: fontSize + " Arial", fill: "#fff", align: "left" }
     );
 
     this.copyright.x = this.game.width - this.copyright.width - 20;
     this.copyright.y = this.game.height - this.copyright.height - 10;
 
     this.helpUs = this.game.add.text(20, 0, 'This is a open-source and colaborative game.\nHelp us at: https://github.com/mariotoledo/just-tap-to-travel-in-time', 
-        { font: "14px Arial", fill: "#fff", align: "left" }
+        { font: fontSize + " Arial", fill: "#fff", align: "left" }
     );
     this.helpUs.y = this.game.height - this.helpUs.height - 10;
   },

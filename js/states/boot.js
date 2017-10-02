@@ -12,6 +12,7 @@ Main.Boot.prototype = {
   },
   create: function() {
     this.game.filterHelper = new Main.FilterHelper();
+    this.game.scaleHelper = new Main.ScaleHelper();
  
   	this.scale.scaleMode = Phaser.ScaleManager.RESIZE;
 

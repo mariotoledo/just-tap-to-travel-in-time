@@ -45,30 +45,41 @@ Main.Stage1.prototype = {
 		this.game.world.setBounds(0, 0, stageLength, this.game.height);
 	},
   	createSprites: function(stageLength){
+  		var scaleRatio = this.game.scaleHelper.getScaleRatio();
+
   		//creating ground sprite
   		this.ground = this.add.tileSprite(0,this.game.height - 70,this.game.world.width, 70, 'ground');
 
   		//creating player sprite
-	    this.player = this.game.add.sprite(this.game.width / 2, this.game.height - 70, 'scientist_walking');
+	    this.player = this.game.add.sprite(0, 0, 'scientist_walking');
+	    this.player.scale.setTo(scaleRatio, scaleRatio);
+	    this.player.x = this.game.width / 2 + (this.player.width / 2);
+    	this.player.y = this.game.height - this.ground.height;
 	    this.player.animations.add('walk');
 	    this.player.standDimensions = {width: this.player.width, height: this.player.height};
 	    this.player.anchor.setTo(0.5, 1);
 	    this.player.animations.play('walk', 24 * this.game.gameController.gameSpeed, true);
 
 	    //creating dinosaur sprite
-	    this.dino = this.game.add.sprite(this.game.width/2 - 450, this.game.height - 70, 'dino_walking');
+	    this.dino = this.game.add.sprite(0, 0, 'dino_walking');
+	    this.dino.scale.setTo(scaleRatio, scaleRatio);
+	    this.dino.x = (this.game.width / 2) - (450 * scaleRatio);
+    	this.dino.y = this.game.height - this.ground.height;
 	    this.dino.animations.add('walk');
 	    this.dino.standDimensions = {width: this.dino.width, height: this.dino.height};
 	    this.dino.anchor.setTo(0.5, 1);
 	    this.dino.animations.play('walk', 24 * this.game.gameController.gameSpeed, true);
 
 	    //creating finish line on the end of the stage
-	    this.finishLine = this.game.add.sprite(stageLength - 400, this.game.height - this.ground.height - 384, 'finish-line');
+	    this.finishLine = this.game.add.sprite(0, 0, 'finish-line');
+	    this.finishLine.scale.setTo(scaleRatio, scaleRatio);
+	    this.finishLine.x = stageLength - this.finishLine.width - 30;
+    	this.finishLine.y = this.game.height - this.ground.height - this.finishLine.height;
 
 	    //creating "decoration" elements
 	    var numberOfPlateus = 3;
 	    for(var i = 0; i < numberOfPlateus; i++){
-	    	this.game.add.sprite((i  * ((stageLength - 1200) / 3)) + 300, this.game.height - 250, 'plateau');	
+	    	this.game.add.sprite((i  * ((stageLength - (1200 * scaleRatio)) / 3)) + (300 * scaleRatio), this.game.height - 250, 'plateau');	
 	    }
   	},
   	createBackground: function(){

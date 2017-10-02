@@ -37,18 +37,35 @@ Main.Stage2.prototype = {
         this.game.stage.backgroundColor = "#4488AA";
     },
     createSprites: function(){
+        var scaleRatio = this.game.scaleHelper.getScaleRatio();
+
         this.ground = this.add.tileSprite(0,this.game.height - 70, this.game.world.width, 70, 'ground');
 
-        this.player = this.game.add.sprite(400, this.game.height - 70, 'scientist_still');
-        this.player.anchor.setTo(0.5, 1);
+        var distance_enemies = 100;
 
-        this.enemy = this.game.add.sprite(this.game.width - 400, this.game.height - 70, 'cowboy_still');
+        this.player = this.game.add.sprite(0, 0, 'scientist_still');
+        this.player.anchor.setTo(0.5, 1);
+        this.player.scale.setTo(scaleRatio, scaleRatio);
+        this.player.x = this.game.world.centerX - (distance_enemies * scaleRatio);
+        this.player.y = this.game.height - this.ground.height;
+
+        this.enemy = this.game.add.sprite(0, 0, 'cowboy_still');
+        this.enemy.scale.setTo(scaleRatio, scaleRatio);
+        this.enemy.x = this.game.world.centerX + (distance_enemies * scaleRatio);
+        this.enemy.y = this.game.height - this.ground.height;
         this.enemy.anchor.setTo(0.5, 0.5);
         this.enemy.scale.x *= -1;
         this.enemy.anchor.setTo(0.5, 1);
 
-        this.game.add.sprite(50, this.game.height - 310, 'warehouse'); 
-        this.game.add.sprite(this.game.width - 300, this.game.height - 260, 'shed'); 
+        var warehouse = this.game.add.sprite(0, 0, 'warehouse'); 
+        warehouse.scale.setTo(scaleRatio, scaleRatio);
+        warehouse.x = 50;
+        warehouse.y = this.game.height - this.ground.height - warehouse.height + 3;
+
+        var shed = this.game.add.sprite(0, 0, 'shed'); 
+        shed.scale.setTo(scaleRatio, scaleRatio);
+        shed.x = this.game.width - shed.width - 50;
+        shed.y = this.game.height - this.ground.height - shed.height + 5;
     },
     addPhisicsToElements: function(gravity){
         this.game.physics.arcade.enable(this.player);
