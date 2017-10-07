@@ -76,7 +76,7 @@ Main.MainMenu.prototype = {
     this.copyright.x = this.game.width - this.copyright.width - 20;
     this.copyright.y = this.game.height - this.copyright.height - 10;
 
-    this.helpUs = this.game.add.text(20, 0, 'This is a open-source and colaborative game.\nHelp us at: https://github.com/mariotoledo/just-tap-to-travel-in-time', 
+    this.helpUs = this.game.add.text(20, 0, 'This is a open-source and colaborative game. (v 1.0.0b)\nHelp us at: https://github.com/mariotoledo/just-tap-to-travel-in-time', 
         { font: fontSize + " Arial", fill: "#fff", align: "left" }
     );
     this.helpUs.y = this.game.height - this.helpUs.height - 10;

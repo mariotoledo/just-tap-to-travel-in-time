@@ -13,7 +13,7 @@ Main.Boot.prototype = {
     this.game.filterHelper = new Main.FilterHelper();
     this.game.scaleHelper = new Main.ScaleHelper();
  
-  	this.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
+  	this.scale.scaleMode = Phaser.ScaleManager.RESIZE;
     //this.scale.fullScreenScaleMode = Phaser.ScaleManager.EXACT_FIT;
 
   	this.scale.pageAlignHorizontally = true;
