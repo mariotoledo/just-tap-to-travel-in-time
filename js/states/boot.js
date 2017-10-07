@@ -14,10 +14,10 @@ Main.Boot.prototype = {
     this.game.scaleHelper = new Main.ScaleHelper();
  
   	this.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
-    this.scale.fullScreenScaleMode = Phaser.ScaleManager.EXACT_FIT;
+    //this.scale.fullScreenScaleMode = Phaser.ScaleManager.EXACT_FIT;
 
   	this.scale.pageAlignHorizontally = true;
-    this.scale.pageAlignVertically = true;
+    //this.scale.pageAlignVertically = true;
 
     if (!this.game.device.desktop)
     {
@@ -31,7 +31,7 @@ Main.Boot.prototype = {
         this.scale.enterIncorrectOrientation.add(this.enterIncorrectOrientation, this);
         this.scale.leaveIncorrectOrientation.add(this.leaveIncorrectOrientation, this);
     }
-    this.game.scale.setMaximum();
+    //this.game.scale.setMaximum();
 
   	this.game.physics.startSystem(Phaser.Physics.ARCADE);
     this.state.start('Preload'); 
