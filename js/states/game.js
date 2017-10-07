@@ -66,14 +66,20 @@ Main.Game.prototype = {
     this.timeMachine.y = this.game.world.centerY;
   },
   createBackground: function() {
-    this.backgroundFilter = new Phaser.Filter(this.game, null, this.game.filterHelper.timeTravelFilter());
-    this.backgroundFilter.setResolution(this.game.width, this.game.height);
+    if(this.game.device.desktop){
+      this.backgroundFilter = new Phaser.Filter(this.game, null, this.game.filterHelper.timeTravelFilter());
+      this.backgroundFilter.setResolution(this.game.width, this.game.height);
 
-    this.backgroundSprite = this.game.add.sprite();
-    this.backgroundSprite.width = this.game.width;
-    this.backgroundSprite.height = this.game.height;
+      this.backgroundSprite = this.game.add.sprite();
+      this.backgroundSprite.width = this.game.width;
+      this.backgroundSprite.height = this.game.height;
 
-    this.backgroundSprite.filters = [ this.backgroundFilter ];
+      this.backgroundSprite.filters = [ this.backgroundFilter ];
+    } else {
+      this.background = this.game.add.tileSprite(0, 0, this.game.width, this.game.height, 'time_travel_mobile_bg');
+      this.background.autoScroll(-20, 0);
+    }
+   
   },
   orderStageElements: function() {
     this.game.world.bringToTop(this.timeMachine);
@@ -91,7 +97,9 @@ Main.Game.prototype = {
       this.game.gameController.gameSpeed == 1 ? 1 : 1 + (this.game.gameController.gameSpeed * 0.10);
   },
 	update: function() {
-    this.backgroundFilter.update(this.game.input.mousePointer);
+    if(this.game.device.desktop){
+      this.backgroundFilter.update(this.game.input.mousePointer);
+    }
 
     //displays current stage label just after the time machine has run over the stage
     if(this.timeMachine.x > this.game.width){

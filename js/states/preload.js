@@ -15,6 +15,7 @@ Main.Preload.prototype = {
     this.load.spritesheet('dino_walking', 'assets/images/dino_walking.png', 258, 180, 2);
     this.load.spritesheet('finish-line', 'assets/images/finish.png', 384, 384, 2);
     this.load.image('ground', 'assets/images/ground.png');
+    this.load.image('time_travel_mobile_bg', 'assets/images/time_travel_mobile_bg.jpg');
     
     this.load.image('plateau', 'assets/images/plateau.png');
     this.load.image('warehouse', 'assets/images/warehouse.png');
