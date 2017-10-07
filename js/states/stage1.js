@@ -63,7 +63,7 @@ Main.Stage1.prototype = {
 	    //creating dinosaur sprite
 	    this.dino = this.game.add.sprite(0, 0, 'dino_walking');
 	    this.dino.scale.setTo(scaleRatio, scaleRatio);
-	    this.dino.x = (this.game.width / 2) - (450 * scaleRatio);
+	    this.dino.x = this.player.x - (450 * scaleRatio);
     	this.dino.y = this.game.height - this.ground.height;
 	    this.dino.animations.add('walk');
 	    this.dino.standDimensions = {width: this.dino.width, height: this.dino.height};
@@ -119,6 +119,7 @@ Main.Stage1.prototype = {
 	    this.game.physics.arcade.collide(this.dino, this.ground, this.playerHit, null, this);
 
 	    this.dino.body.velocity.x = this.dinoConfig.velocity;
+	    console.log('this.dino.x', this.dino.x);
 
 	    //player can be caught only if the game isn't over
 	    if(!this.finished)

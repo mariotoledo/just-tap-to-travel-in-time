@@ -17,9 +17,7 @@ Main.Preload.prototype = {
     this.load.image('ground', 'assets/images/ground.png');
     
     this.load.image('plateau', 'assets/images/plateau.png');
-    this.load.image('oasis', 'assets/images/oasis.png');
     this.load.image('warehouse', 'assets/images/warehouse.png');
-    this.load.image('stockyard', 'assets/images/stockyard.png');
     this.load.image('shed', 'assets/images/shed.png');
     this.load.image('time_machine', 'assets/images/time_machine.png');
 
@@ -39,14 +37,14 @@ Main.Preload.prototype = {
     this.ground = this.add.tileSprite(0,this.game.height - 70,this.game.world.width, 70, 'lab_floor');
     this.game.world.bringToTop(this.ground);
 
-    this.preloadBar = this.add.sprite(this.game.world.centerX, this.game.world.centerY + 128, 'preloadbar');
-    this.preloadBar.anchor.setTo(0.5);
-
     this.helpUs = this.game.add.text(this.game.world.centerX, 0, 'This is a open-source and colaborative game.\nHelp us at: https://github.com/mariotoledo/just-tap-to-travel-in-time', 
         { font: "18px Arial", fill: "#fff", align: "center" }
     );
     this.helpUs.anchor.setTo(0.5);
     this.helpUs.y = this.game.world.centerY - this.helpUs.height - 30;
+
+    this.preloadBar = this.add.sprite(this.game.world.centerX, this.helpUs.y + this.helpUs.height + 20, 'preloadbar');
+    this.preloadBar.anchor.setTo(0.5);
  
     this.load.setPreloadSprite(this.preloadBar);
   },

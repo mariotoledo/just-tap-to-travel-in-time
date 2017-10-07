@@ -96,10 +96,32 @@
 				margin:0px;
 				padding:0px;
 			}
+
+			#rotate{
+	            display:none;
+	            width: 100%;
+	            height: 100%;
+	            position: absolute;
+	            background-color: #000000;
+	        }
+	        .helper {
+	            display: inline-block;
+	            height: 100%;
+	            vertical-align: middle;
+	        }
+	        #rotate img{
+	            vertical-align: middle;
+	            width: 100%;
+	            position: absolute;
+	            top: 30%;
+	        }
 		</style>
 	</head>
  
 	<body>  
+		<div id="rotate">
+			<img alt="rotate to landscape mode" src="assets/images/landscape_warning.jpg" />
+		</div>
 		<script src="js/main.js"></script>
 	</body>
 </html>

@@ -59,12 +59,14 @@ Main.Stage2.prototype = {
 
         var warehouse = this.game.add.sprite(0, 0, 'warehouse'); 
         warehouse.scale.setTo(scaleRatio, scaleRatio);
-        warehouse.x = 50;
+        warehouse.x = 30 * scaleRatio;
         warehouse.y = this.game.height - this.ground.height - warehouse.height + 3;
+
+        console.log('scaleRatio', scaleRatio);
 
         var shed = this.game.add.sprite(0, 0, 'shed'); 
         shed.scale.setTo(scaleRatio, scaleRatio);
-        shed.x = this.game.width - shed.width - 50;
+        shed.x = this.game.width - shed.width - (30 * scaleRatio);
         shed.y = this.game.height - this.ground.height - shed.height + 5;
     },
     addPhisicsToElements: function(gravity){
