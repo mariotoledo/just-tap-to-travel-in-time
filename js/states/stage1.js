@@ -58,7 +58,7 @@ Main.Stage1.prototype = {
 	    this.player.animations.add('walk');
 	    this.player.standDimensions = {width: this.player.width, height: this.player.height};
 	    this.player.anchor.setTo(0.5, 1);
-	    this.player.animations.play('walk', 24 * this.game.gameController.gameSpeed, true);
+	    this.player.animations.play('walk', 2 * this.playerConfig.aceleration * this.game.gameController.gameSpeed, true);
 
 	    //creating dinosaur sprite
 	    this.dino = this.game.add.sprite(0, 0, 'dino_walking');
@@ -112,14 +112,14 @@ Main.Stage1.prototype = {
 	playBackgroundMusic: function() {
 	  this.backgroundMusic.loopFull(0.6);
 	  this.backgroundMusic._sound.playbackRate.value = 
-      	this.game.gameController.gameSpeed == 1 ? 1 : 1 + (this.game.gameController.gameSpeed * 0.10);
+      this.game.gameController.gameSpeed == 1 ? 1 : 1 + (this.game.gameController.gameSpeed * 0.10);
 	},
 	update: function() {
 	    this.game.physics.arcade.collide(this.player, this.ground, this.playerHit, null, this);
 	    this.game.physics.arcade.collide(this.dino, this.ground, this.playerHit, null, this);
+	    this.player.animations._anims.walk.speed = 2 * this.playerConfig.aceleration * this.game.gameController.gameSpeed ;
 
 	    this.dino.body.velocity.x = this.dinoConfig.velocity;
-	    console.log('this.dino.x', this.dino.x);
 
 	    //player can be caught only if the game isn't over
 	    if(!this.finished)
