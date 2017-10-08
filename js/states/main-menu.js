@@ -50,6 +50,7 @@ Main.MainMenu.prototype = {
     this.timeMachine.y = this.game.height - this.timeMachine.height - this.ground.height;
 
     this.title = this.add.sprite(this.game.world.centerX, this.game.world.centerY - 70, 'title');
+    this.title.scale.setTo(scaleRatio, scaleRatio);
     this.title.anchor.setTo(0.5);
   },
   orderStageElements: function() {
@@ -76,7 +77,7 @@ Main.MainMenu.prototype = {
     this.copyright.x = this.game.width - this.copyright.width - 20;
     this.copyright.y = this.game.height - this.copyright.height - 10;
 
-    this.helpUs = this.game.add.text(20, 0, 'This is a open-source and colaborative game. (v 1.0.0b)\nHelp us at: https://github.com/mariotoledo/just-tap-to-travel-in-time', 
+    this.helpUs = this.game.add.text(20, 0, 'This is an open-source and colaborative game. (v 1.0.2b)\nHelp us at: github.com/mariotoledo/just-tap-to-travel-in-time', 
         { font: fontSize + " Arial", fill: "#fff", align: "left" }
     );
     this.helpUs.y = this.game.height - this.helpUs.height - 10;

@@ -38,8 +38,10 @@ Main.Preload.prototype = {
     this.ground = this.add.tileSprite(0,this.game.height - 70,this.game.world.width, 70, 'lab_floor');
     this.game.world.bringToTop(this.ground);
 
+    var fontSize = this.game.device.desktop ? '18px' : '14px';
+
     this.helpUs = this.game.add.text(this.game.world.centerX, 0, 'This is a open-source and colaborative game.\nHelp us at: https://github.com/mariotoledo/just-tap-to-travel-in-time', 
-        { font: "18px Arial", fill: "#fff", align: "center" }
+        { font: fontSize + " Arial", fill: "#fff", align: "center" }
     );
     this.helpUs.anchor.setTo(0.5);
     this.helpUs.y = this.game.world.centerY - this.helpUs.height - 30;
