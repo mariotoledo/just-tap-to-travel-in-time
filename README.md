@@ -1,5 +1,5 @@
 # Just TAP to TIME IN TRAVEL
-#### A colaborative Phaser game made to an online Game Jam with a time-travel theme
+> A colaborative Phaser game made to an online Game Jam with a time-travel theme
 
 "Just TAP to TIME IN TRAVEL" is a game made originally for a [Yarquen's online Game Jam](https://www.youtube.com/watch?v=GJcB-tKWsJE) with a "time travel" theme.
 
